@@ -1,0 +1,37 @@
+from collections import OrderedDict
+import os
+import pathlib
+import pickle
+import json
+
+def load_json(file):
+    with open(file, 'r') as f:
+        a = json.load(f)
+    return a
+
+
+def save_json(obj, file, indent=4, sort_keys=True):
+    with open(file, 'w') as f:
+        json.dump(obj, f, sort_keys=sort_keys, indent=indent)
+
+        
+json_dict = OrderedDict()
+json_dict['name'] = "VerSe2019"
+json_dict['description'] = "VerSe2019"
+json_dict['tensorImageSize'] = "4D"
+json_dict['reference'] = "see challenge website"
+json_dict['licence'] = "see challenge website"
+json_dict['release'] = "0.0"
+json_dict['modality'] = {
+    "0": "CT",
+}
+json_dict['labels'] = {i: str(i) for i in range(26)}
+
+#json_dict['numTraining'] = len(train_patient_names)
+#json_dict['numTest'] = len(test_patient_names)
+#json_dict['training'] = [{'image': "./imagesTr/%s.nii.gz" % i.split("/")[-1], "label": "./labelsTr/%s.nii.gz" % i.split("/")[-1]} for i in
+                        #train_patient_names]
+#json_dict['test'] = ["./imagesTs/%s.nii.gz" % i.split("/")[-1] for i in test_patient_names]
+
+current_path = os.getcwd ()
+save_json(json_dict, os.path.join(current_path, "dataset.json"))
